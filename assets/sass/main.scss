@@ -1474,7 +1474,7 @@
 
 	#header {
 		@include vendor('transition', 'background-color #{_duration(transitions)} ease');
-		background: #023641;
+		background: _palette(bg);
 		height: 3em;
 		left: 0;
 		line-height: 3em;
@@ -1566,7 +1566,7 @@
 		}
 
 		&.alt {
-			background: #023641;
+			background: transparent;
 
 			h1 {
 				@include vendor('pointer-events', 'none');
