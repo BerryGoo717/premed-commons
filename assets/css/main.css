@@ -3584,21 +3584,6 @@ input, select, textarea {
 		text-align: center;
 	}
 
-		#banner .banner-image {
-			filter: brightness(0.5);
-			height: 100%;
-			left: 0;
-			object-fit: cover;
-			position: absolute;
-			top: 0;
-			width: 100%;
-		}
-
-		#banner .inner {
-			position: relative;
-			z-index: 1;
-		}
-
 		#banner h2 {
 			-moz-transform: scale(1);
 			-webkit-transform: scale(1);

@@ -1588,21 +1588,6 @@
 		position: relative;
 		text-align: center;
 
-		.banner-image {
-			filter: brightness(0.5);
-			height: 100%;
-			left: 0;
-			object-fit: cover;
-			position: absolute;
-			top: 0;
-			width: 100%;
-		}
-
-		.inner {
-			position: relative;
-			z-index: 1;
-		}
-
 		h2 {
 			@include vendor('transform', 'scale(1)');
 			@include vendor('transition', ('transform 0.5s ease', 'opacity 0.5s ease'));
