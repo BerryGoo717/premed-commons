@@ -1474,7 +1474,7 @@
 
 	#header {
 		@include vendor('transition', 'background-color #{_duration(transitions)} ease');
-		background: _palette(bg);
+		background: #023641;
 		height: 3em;
 		left: 0;
 		line-height: 3em;
@@ -1566,7 +1566,7 @@
 		}
 
 		&.alt {
-			background: transparent;
+			background: #023641;
 
 			h1 {
 				@include vendor('pointer-events', 'none');
@@ -1581,16 +1581,27 @@
 		@include vendor('display', 'flex');
 		@include vendor('flex-direction', 'column');
 		@include vendor('justify-content', 'center');
-		@include vendor('background-image', ('linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5))', 'url("../../images/banner.png")'));
-		background-position: center center;
-		background-repeat: no-repeat;
-		background-size: cover;
 		cursor: default;
 		height: 100vh;
 		min-height: 35em;
 		overflow: hidden;
 		position: relative;
 		text-align: center;
+
+		.banner-image {
+			filter: brightness(0.5);
+			height: 100%;
+			left: 0;
+			object-fit: cover;
+			position: absolute;
+			top: 0;
+			width: 100%;
+		}
+
+		.inner {
+			position: relative;
+			z-index: 1;
+		}
 
 		h2 {
 			@include vendor('transform', 'scale(1)');
@@ -1924,7 +1935,7 @@
 
 			#banner,
 			.wrapper.style4 {
-				@include vendor('background-image', ('linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5))', 'url("../../images/banner.jpg")'));
+				@include vendor('background-image', ('linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5))', 'url("../../images/banner.png")'));
 				background-position: center center;
 				background-repeat: no-repeat;
 				background-size: cover;

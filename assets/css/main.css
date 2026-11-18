@@ -87,7 +87,7 @@ input, select, textarea {
 	}
 
 	body {
-		background: #2e3842;
+		background: #023641;
 	}
 
 		body.is-preload *, body.is-preload *:before, body.is-preload *:after {
@@ -3445,7 +3445,7 @@ input, select, textarea {
 		-webkit-transition: background-color 0.2s ease;
 		-ms-transition: background-color 0.2s ease;
 		transition: background-color 0.2s ease;
-		background: #2e3842;
+		background: #023641;
 		height: 3em;
 		left: 0;
 		line-height: 3em;
@@ -3553,7 +3553,7 @@ input, select, textarea {
 					}
 
 		#header.alt {
-			background: transparent;
+			background: #023641;
 		}
 
 			#header.alt h1 {
@@ -3576,13 +3576,6 @@ input, select, textarea {
 		-webkit-justify-content: center;
 		-ms-justify-content: center;
 		justify-content: center;
-		background-image: -moz-linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/banner.png");
-		background-image: -webkit-linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/banner.png");
-		background-image: -ms-linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/banner.png");
-		background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/banner.png");
-		background-position: center center;
-		background-repeat: no-repeat;
-		background-size: cover;
 		cursor: default;
 		height: 100vh;
 		min-height: 35em;
@@ -3590,6 +3583,21 @@ input, select, textarea {
 		position: relative;
 		text-align: center;
 	}
+
+		#banner .banner-image {
+			filter: brightness(0.5);
+			height: 100%;
+			left: 0;
+			object-fit: cover;
+			position: absolute;
+			top: 0;
+			width: 100%;
+		}
+
+		#banner .inner {
+			position: relative;
+			z-index: 1;
+		}
 
 		#banner h2 {
 			-moz-transform: scale(1);
