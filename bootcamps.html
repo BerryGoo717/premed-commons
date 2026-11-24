@@ -18,7 +18,7 @@
 <body>
 <header>
   <div class="wrap bar">
-    <a class="logo" href="index.html"><img src="logo.png" alt="" onerror="this.remove()"><span class="logo-text">Premed Commons</span></a>
+    <a class="logo" href="index.html"><span class="logo-mark"><img src="logo.png" alt="" onerror="this.parentNode.remove()"></span><span class="logo-text">Premed Commons</span></a>
     <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav">Menu</button>
     <nav id="nav" aria-label="Main">
       <ul>
@@ -91,15 +91,17 @@
     </div>
   </section>
 
-  <section class="cta-band dark">
+  <div class="cta-band">
     <div class="wrap">
-      <div>
-        <h2>Ready to join a session?</h2>
-        <p>Sign up and we will let you know when the next one opens.</p>
+      <div class="cta-box">
+        <div>
+          <h2>Ready to join a session?</h2>
+          <p>Sign up and we will let you know when the next one opens.</p>
+        </div>
+        <a class="btn" href="index.html#join">Sign up</a>
       </div>
-      <a class="btn" href="index.html#join">Sign up</a>
     </div>
-  </section>
+  </div>
 </main>
 <footer>
   <div class="wrap">
