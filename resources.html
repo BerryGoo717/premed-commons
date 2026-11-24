@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Resources | Premed Commons</title>
+<meta name="description" content="Premed roadmap, MCAT planning, personal statement guides, shadowing tips, and more.">
+<meta property="og:title" content="Resources | Premed Commons">
+<meta property="og:description" content="Premed roadmap, MCAT planning, personal statement guides, shadowing tips, and more.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🩺</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+  <div class="wrap bar">
+    <a class="logo" href="index.html"><span></span>Premed Commons</a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav id="nav" aria-label="Main">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="bootcamps.html">Bootcamp Sessions</a></li>
+        <li><a href="resources.html" aria-current="page">Resources</a></li>
+        <li><a href="community.html">Premed Community</a></li>
+        <li><a class="btn" href="index.html#join">Sign up</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<main>
+  <div class="hero page-hero">
+    <div class="wrap">
+      <h1>Resources</h1>
+      <p class="lead">Guides, templates, and a roadmap to help you know what to do next.</p>
+    </div>
+  </div>
+
+  <section class="alt" id="roadmap">
+    <div class="wrap">
+      <h2>Your premed roadmap</h2>
+      <p class="lead">Pick your year to see what to focus on. Check items off as you go. Your progress is saved in this browser.</p>
+      <div class="tabs" role="tablist" aria-label="Year in school" id="tabs"></div>
+      <div id="panels"></div>
+      <p class="note">This is general guidance, not a substitute for your school's premed advisor. Requirements and timelines vary by school and program.</p>
+    </div>
+  </section>
+
+  <section class="mint" id="library">
+    <div class="wrap">
+      <h2>Resource library</h2>
+      <p class="lead">Filter by topic. Replace these sample entries with your own guides and links.</p>
+      <div class="filters" id="filters" role="group" aria-label="Filter resources"></div>
+      <div class="cards" id="cards"></div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="wrap">
+      <h2>Want help using these?</h2>
+      <p>Our bootcamp sessions walk through the most important ones step by step.</p>
+      <a class="btn" href="bootcamps.html">See bootcamp sessions</a>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="wrap">
+    <div>© <span id="year"></span> Premed Commons</div>
+    <ul>
+      <li><a href="bootcamps.html">Bootcamp Sessions</a></li>
+      <li><a href="resources.html">Resources</a></li>
+      <li><a href="community.html">Premed Community</a></li>
+      <li><a href="mailto:hello@premedcommons.org">hello@premedcommons.org</a></li>
+      <li><a href="#">Instagram</a></li>
+      <li><a href="#">LinkedIn</a></li>
+    </ul>
+  </div>
+</footer>
+<script src="main.js"></script>
+</body>
+</html>

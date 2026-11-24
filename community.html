@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Premed Community | Premed Commons</title>
+<meta name="description" content="A supportive community of premed students sharing advice, study tips, and encouragement.">
+<meta property="og:title" content="Premed Community | Premed Commons">
+<meta property="og:description" content="A supportive community of premed students sharing advice, study tips, and encouragement.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🩺</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+  <div class="wrap bar">
+    <a class="logo" href="index.html"><span></span>Premed Commons</a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav id="nav" aria-label="Main">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="bootcamps.html">Bootcamp Sessions</a></li>
+        <li><a href="resources.html">Resources</a></li>
+        <li><a href="community.html" aria-current="page">Premed Community</a></li>
+        <li><a class="btn" href="index.html#join">Sign up</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<main>
+  <div class="hero page-hero">
+    <div class="wrap">
+      <h1>Premed Community</h1>
+      <p class="lead">A supportive group of students who understand the pressure and want to see each other succeed.</p>
+      <div class="actions"><a class="btn" href="index.html#join">Join the community</a></div>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <h2>Find your circle</h2>
+      <p class="lead">Circles group students by stage, so you can talk with people facing the same decisions.</p>
+      <div class="finder">
+        <label for="stage">Where are you in your premed journey?</label>
+        <select id="stage"><option value="">Choose your year</option></select>
+        <div class="finder-out" id="finderOut" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="alt">
+    <div class="wrap">
+      <h2>What the community is for</h2>
+      <div class="rules">
+        <div><h3>Ask anything</h3><p>No question is too basic. Everyone starts somewhere.</p></div>
+        <div><h3>Share what you learn</h3><p>Pass along what worked, from study methods to how you found shadowing.</p></div>
+        <div><h3>Cheer each other on</h3><p>Premed does not have to be a competition. We celebrate wins together.</p></div>
+        <div><h3>Take care of yourself</h3><p>Talk openly about stress and burnout and support each other.</p></div>
+      </div>
+      <p class="note">Add where the community meets (Discord, GroupMe, Slack, or in person) and your community guidelines here.</p>
+    </div>
+  </section>
+
+  <section class="mint">
+    <div class="wrap">
+      <h2>Get involved as a mentor</h2>
+      <p class="lead">Are you a current medical student, resident, or physician? Help the next group of students find their way.</p>
+      <a class="btn" href="mailto:hello@premedcommons.org?subject=Mentoring%20with%20Premed%20Commons">Email us about mentoring</a>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>Community questions</h2>
+      <details>
+        <summary>Is the community free to join?</summary>
+        <p>Add your pricing details here.</p>
+      </details>
+      <details>
+        <summary>How active is it?</summary>
+        <p>Describe how often members connect and what a typical week looks like.</p>
+      </details>
+      <details>
+        <summary>Is it only for students at certain schools?</summary>
+        <p>Add whether membership is open to students from any school.</p>
+      </details>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="wrap">
+      <h2>Come join us</h2>
+      <p>Sign up and we will send you details on how to connect.</p>
+      <a class="btn" href="index.html#join">Sign up</a>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="wrap">
+    <div>© <span id="year"></span> Premed Commons</div>
+    <ul>
+      <li><a href="bootcamps.html">Bootcamp Sessions</a></li>
+      <li><a href="resources.html">Resources</a></li>
+      <li><a href="community.html">Premed Community</a></li>
+      <li><a href="mailto:hello@premedcommons.org">hello@premedcommons.org</a></li>
+      <li><a href="#">Instagram</a></li>
+      <li><a href="#">LinkedIn</a></li>
+    </ul>
+  </div>
+</footer>
+<script src="main.js"></script>
+</body>
+</html>

@@ -1,175 +1,171 @@
-<!DOCTYPE HTML>
-<!--
-	Premed Commons
-	Julie Pao | @premedcommons
--->
-<html>
-	<head>
-		<title>Premed Commons</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	</head>
-	<body class="landing is-preload">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Premed Commons | Mentorship for aspiring physicians</title>
+<meta name="description" content="Premed Commons is a mentorship organization helping premed students navigate the road to medical school through bootcamp sessions, a supportive peer community, and comprehensive resources.">
+<meta property="og:title" content="Premed Commons | Mentorship for aspiring physicians">
+<meta property="og:description" content="Premed Commons is a mentorship organization helping premed students navigate the road to medical school through bootcamp sessions, a supportive peer community, and comprehensive resources.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🩺</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+  <div class="wrap bar">
+    <a class="logo" href="index.html"><span></span>Premed Commons</a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav id="nav" aria-label="Main">
+      <ul>
+        <li><a href="index.html" aria-current="page">Home</a></li>
+        <li><a href="bootcamps.html">Bootcamp Sessions</a></li>
+        <li><a href="resources.html">Resources</a></li>
+        <li><a href="community.html">Premed Community</a></li>
+        <li><a class="btn" href="index.html#join">Sign up</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<main>
+  <div class="hero">
+    <div class="wrap">
+      <h1>The road to medical school is easier <mark>with company.</mark></h1>
+      <p class="lead">Premed Commons is a mentorship organization for premed students. Join bootcamp sessions, find a supportive peer community, and use resources that walk you through each step.</p>
+      <div class="actions">
+        <a class="btn" href="#join">Sign up</a>
+        <a class="btn ghost" href="#explore">Explore what we offer</a>
+      </div>
+    </div>
+  </div>
 
-		<!-- Page Wrapper -->
-			<div id="page-wrapper">
+  <section id="explore">
+    <div class="wrap">
+      <h2>Three ways we support you</h2>
+      <p class="lead">Use one or all three. Each has its own page with more detail.</p>
+      <div class="tiles">
+        <a class="tile" href="bootcamps.html">
+          <h3>Bootcamp Sessions</h3>
+          <p>Focused sessions on the parts of the process that feel most confusing: school lists, personal statements, interviews, and more.</p>
+          <span class="go">See sessions</span>
+        </a>
+        <a class="tile" href="community.html">
+          <h3>Premed Community</h3>
+          <p>Meet other premeds who understand the pressure. Swap tips, share experiences, and keep each other going.</p>
+          <span class="go">Find your circle</span>
+        </a>
+        <a class="tile" href="resources.html">
+          <h3>Resources</h3>
+          <p>Guides, checklists, and an interactive roadmap in one place, so you do not have to piece together advice from forums.</p>
+          <span class="go">Browse resources</span>
+        </a>
+      </div>
+    </div>
+  </section>
 
-				<!-- Header -->
-					<header id="header" class="alt">
-						<h1><a href="index.html">Premed Commons</a></h1>
-						<nav id="nav">
-							<ul>
-								<li class="special">
-									<a href="#menu" class="menuToggle"><span>Menu</span></a>
-									<div id="menu">
-										<ul>
-											<li><a href="index.html">Home</a></li>
-											<li><a href="generic.html">Generic</a></li>
-											<li><a href="elements.html">Elements</a></li>
-											<li><a href="#">Sign Up</a></li>
-											<li><a href="#">Log In</a></li>
-										</ul>
-									</div>
-								</li>
-							</ul>
-						</nav>
-					</header>
+  <section class="alt">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>From the resource library</h2>
+        <a class="more" href="resources.html">View all resources</a>
+      </div>
+      <div class="cards" id="cards" data-limit="3"></div>
+    </div>
+  </section>
 
-				<!-- Banner -->
-					<section id="banner">
-						<div class="inner">
-							<h2>Premed Commons</h2>
-							<p>Empowering aspiring physicians<br />
-							to navigate the road to<br />
-							medical school</p>
-							<ul class="actions special">
-								<li><a href="#" class="button primary">Sign Up</a></li>
-							</ul>
-						</div>
-						<a href="#one" class="more scrolly">Learn More</a>
-					</section>
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Coming up in bootcamps</h2>
+        <a class="more" href="bootcamps.html">All sessions</a>
+      </div>
+      <div class="cards">
+        <article class="card"><div class="tag">Application</div><h3>Building your school list</h3><p>Balance reach, target, and safety schools with a plan you can defend.</p></article>
+        <article class="card"><div class="tag">Application</div><h3>Personal statement workshop</h3><p>Turn your reasons for medicine into a clear, honest story.</p></article>
+        <article class="card"><div class="tag">Interviews</div><h3>Interview practice</h3><p>Rehearse common questions with feedback from mentors.</p></article>
+      </div>
+    </div>
+  </section>
 
-				<!-- One -->
-					<section id="one" class="wrapper style1 special">
-						<div class="inner">
-							<header class="major">
-								<h2>Arcu aliquet vel lobortis ata nisl<br />
-								eget augue amet aliquet nisl cep donec</h2>
-								<p>Premed Commons is a mentorship organization that aims to help premed students<br />
-								navigate the road to medical school. Through bootcamp sessions, a supportive peer<br />
-								community, and comprehensive resources, Premed Commons guides students through<br />
-								the process, empowering them to achieve their vision of success.</p>
-							</header>
-							<ul class="icons major">
-								<li><span class="icon fa-gem major style1"><span class="label">Lorem</span></span></li>
-								<li><span class="icon fa-heart major style2"><span class="label">Ipsum</span></span></li>
-								<li><span class="icon solid fa-code major style3"><span class="label">Dolor</span></span></li>
-							</ul>
-						</div>
-					</section>
+  <section class="mint">
+    <div class="wrap">
+      <h2>You do not have to do this alone</h2>
+      <p class="lead">Premed is a long road with a lot of pressure. Our community is built so you always have someone to ask, compare notes with, or celebrate with.</p>
+      <a class="btn" href="community.html">Meet the community</a>
+    </div>
+  </section>
 
-				<!-- Two -->
-					<section id="two" class="wrapper alt style2">
-						<section class="spotlight">
-							<div class="image"><img src="images/pic01.jpg" alt="" /></div><div class="content">
-								<h2>Magna primis lobortis<br />
-								sed ullamcorper</h2>
-								<p>Aliquam ut ex ut augue consectetur interdum. Donec hendrerit imperdiet. Mauris eleifend fringilla nullam aenean mi ligula.</p>
-							</div>
-						</section>
-						<section class="spotlight">
-							<div class="image"><img src="images/pic02.jpg" alt="" /></div><div class="content">
-								<h2>Tortor dolore feugiat<br />
-								elementum magna</h2>
-								<p>Aliquam ut ex ut augue consectetur interdum. Donec hendrerit imperdiet. Mauris eleifend fringilla nullam aenean mi ligula.</p>
-							</div>
-						</section>
-						<section class="spotlight">
-							<div class="image"><img src="images/pic03.jpg" alt="" /></div><div class="content">
-								<h2>Augue eleifend aliquet<br />
-								sed condimentum</h2>
-								<p>Aliquam ut ex ut augue consectetur interdum. Donec hendrerit imperdiet. Mauris eleifend fringilla nullam aenean mi ligula.</p>
-							</div>
-						</section>
-					</section>
+  <section id="faq">
+    <div class="wrap">
+      <h2>Quick questions</h2>
+      <details>
+        <summary>Who is Premed Commons for?</summary>
+        <p>Any student working toward medical school, at any stage. Whether you are choosing a major or preparing your application, there is a place for you.</p>
+      </details>
+      <details>
+        <summary>Does it cost anything?</summary>
+        <p>Add your pricing details here. If membership is free, say so plainly.</p>
+      </details>
+      <details>
+        <summary>Do I need to be a biology or chemistry major?</summary>
+        <p>No. Medical schools accept applicants from every major as long as the required prerequisite courses are completed. Check the requirements of the schools you are interested in.</p>
+      </details>
+    </div>
+  </section>
 
-				<!-- Three -->
-					<section id="three" class="wrapper style3 special">
-						<div class="inner">
-							<header class="major">
-								<h2>Accumsan mus tortor nunc aliquet</h2>
-								<p>Aliquam ut ex ut augue consectetur interdum. Donec amet imperdiet eleifend<br />
-								fringilla tincidunt. Nullam dui leo Aenean mi ligula, rhoncus ullamcorper.</p>
-							</header>
-							<ul class="features">
-								<li class="icon fa-paper-plane">
-									<h3>Arcu accumsan</h3>
-									<p>Augue consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidunt nullam amet leo Aenean ligula consequat consequat.</p>
-								</li>
-								<li class="icon solid fa-laptop">
-									<h3>Ac Augue Eget</h3>
-									<p>Augue consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidunt nullam amet leo Aenean ligula consequat consequat.</p>
-								</li>
-								<li class="icon solid fa-code">
-									<h3>Mus Scelerisque</h3>
-									<p>Augue consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidunt nullam amet leo Aenean ligula consequat consequat.</p>
-								</li>
-								<li class="icon solid fa-headphones-alt">
-									<h3>Mauris Imperdiet</h3>
-									<p>Augue consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidunt nullam amet leo Aenean ligula consequat consequat.</p>
-								</li>
-								<li class="icon fa-heart">
-									<h3>Aenean Primis</h3>
-									<p>Augue consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidunt nullam amet leo Aenean ligula consequat consequat.</p>
-								</li>
-								<li class="icon fa-flag">
-									<h3>Tortor Ut</h3>
-									<p>Augue consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidunt nullam amet leo Aenean ligula consequat consequat.</p>
-								</li>
-							</ul>
-						</div>
-					</section>
-
-				<!-- CTA -->
-					<section id="cta" class="wrapper style4">
-						<div class="inner">
-							<header>
-								<h2>Arcue ut vel commodo</h2>
-								<p>Aliquam ut ex ut augue consectetur interdum endrerit imperdiet amet eleifend fringilla.</p>
-							</header>
-							<ul class="actions stacked">
-								<li><a href="#" class="button fit primary">Activate</a></li>
-								<li><a href="#" class="button fit">Learn More</a></li>
-							</ul>
-						</div>
-					</section>
-
-				<!-- Footer -->
-					<footer id="footer">
-						<ul class="icons">
-							<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-							<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-							<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-							<li><a href="#" class="icon brands fa-dribbble"><span class="label">Dribbble</span></a></li>
-							<li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
-						</ul>
-						<ul class="copyright">
-							<li>&copy; Untitled</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-						</ul>
-					</footer>
-
-			</div>
-
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
-
-	</body>
+  <section class="join" id="join">
+    <div class="wrap">
+      <h2>Join Premed Commons</h2>
+      <p>Tell us a little about yourself and we will be in touch with next steps.</p>
+      <form class="form" id="joinForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <label>Name
+          <input type="text" name="name" autocomplete="name" required>
+        </label>
+        <label>Email
+          <input type="email" name="email" autocomplete="email" required>
+        </label>
+        <label>Where are you in your premed journey?
+          <select name="stage" required>
+            <option value="">Choose one</option>
+            <option>First year</option>
+            <option>Second year</option>
+            <option>Third year</option>
+            <option>Fourth year</option>
+            <option>Gap year or post-bacc</option>
+            <option>Not sure yet</option>
+          </select>
+        </label>
+        <label>What are you most interested in?
+          <select name="interest">
+            <option>Bootcamp sessions</option>
+            <option>Premed community</option>
+            <option>Resources</option>
+            <option>All of it</option>
+          </select>
+        </label>
+        <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button class="btn" type="submit">Sign up</button>
+        <div class="status" id="status" role="status" aria-live="polite"></div>
+      </form>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="wrap">
+    <div>© <span id="year"></span> Premed Commons</div>
+    <ul>
+      <li><a href="bootcamps.html">Bootcamp Sessions</a></li>
+      <li><a href="resources.html">Resources</a></li>
+      <li><a href="community.html">Premed Community</a></li>
+      <li><a href="mailto:hello@premedcommons.org">hello@premedcommons.org</a></li>
+      <li><a href="#">Instagram</a></li>
+      <li><a href="#">LinkedIn</a></li>
+    </ul>
+  </div>
+</footer>
+<script src="main.js"></script>
+</body>
 </html>
