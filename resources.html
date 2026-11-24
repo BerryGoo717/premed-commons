@@ -12,7 +12,7 @@
 <link rel="icon" href="logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -32,36 +32,47 @@
   </div>
 </header>
 <main>
-  <div class="hero page-hero">
+  <div class="page-hero">
     <div class="wrap">
+      <span class="accent"></span>
       <h1>Resources</h1>
       <p class="lead">Guides, templates, and a roadmap to help you know what to do next.</p>
     </div>
   </div>
 
-  <section class="alt" id="roadmap">
-    <div class="wrap">
-      <h2>Your premed roadmap</h2>
-      <p class="lead">Pick your year to see what to focus on. Check items off as you go. Your progress is saved in this browser.</p>
-      <div class="tabs" role="tablist" aria-label="Year in school" id="tabs"></div>
-      <div id="panels"></div>
-      <p class="note">This is general guidance, not a substitute for your school's premed advisor. Requirements and timelines vary by school and program.</p>
+  <section class="split-sec" id="roadmap">
+    <div class="wrap split">
+      <div class="split-head">
+        <h2>Your premed roadmap</h2>
+        <p class="lead">Pick your year to see what to focus on. Check items off as you go. Your progress is saved in this browser.</p>
+      </div>
+      <div class="split-body">
+        <div class="tabs" role="tablist" aria-label="Year in school" id="tabs"></div>
+        <div id="panels"></div>
+        <p class="note">This is general guidance, not a substitute for your school's premed advisor. Requirements and timelines vary by school and program.</p>
+      </div>
     </div>
   </section>
 
-  <section class="mint" id="library">
-    <div class="wrap">
-      <h2>Resource library</h2>
-      <p class="lead">Filter by topic. Replace these sample entries with your own guides and links.</p>
-      <div class="filters" id="filters" role="group" aria-label="Filter resources"></div>
-      <div class="cards" id="cards"></div>
+  <section class="split-sec" id="library">
+    <div class="wrap split">
+      <div class="split-head">
+        <h2>Resource library</h2>
+        <p class="lead">Filter by topic. Replace these sample entries with your own guides and links.</p>
+      </div>
+      <div class="split-body">
+        <div class="filters" id="filters" role="group" aria-label="Filter resources"></div>
+        <div class="cards" id="cards"></div>
+      </div>
     </div>
   </section>
 
-  <section class="cta-band">
+  <section class="cta-band dark">
     <div class="wrap">
-      <h2>Want help using these?</h2>
-      <p>Our bootcamp sessions walk through the most important ones step by step.</p>
+      <div>
+        <h2>Want help using these?</h2>
+        <p>Our bootcamp sessions walk through the most important ones step by step.</p>
+      </div>
       <a class="btn" href="bootcamps.html">See bootcamp sessions</a>
     </div>
   </section>
