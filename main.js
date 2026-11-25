@@ -56,12 +56,38 @@ const $ = id => document.getElementById(id);
 if($("year")) $("year").textContent = new Date().getFullYear();
 
 /* ===== Copy email ===== */
+async function copyText(text) {
+  let clipboardError;
+  if(navigator.clipboard && window.isSecureContext) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return;
+    } catch(err) {
+      clipboardError = err;
+    }
+  }
+
+  const field = document.createElement("textarea");
+  field.value = text;
+  field.setAttribute("readonly", "");
+  field.style.position = "fixed";
+  field.style.opacity = "0";
+  document.body.appendChild(field);
+  field.select();
+  let copied;
+  try {
+    copied = document.execCommand("copy");
+  } finally {
+    field.remove();
+  }
+  if(!copied) throw clipboardError || new Error("Clipboard copy failed");
+}
+
 document.querySelectorAll("[data-copy-email]").forEach(button => {
   button.addEventListener("click", async () => {
     const status = button.nextElementSibling;
     try {
-      if(!navigator.clipboard) throw new Error("Clipboard API unavailable");
-      await navigator.clipboard.writeText(button.dataset.copyEmail);
+      await copyText(button.dataset.copyEmail);
       status.textContent = "Email copied to clipboard.";
     } catch(err) {
       status.textContent = "Could not copy email. Please copy it manually.";
