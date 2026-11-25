@@ -83,6 +83,7 @@ async function copyText(text) {
   if(!copied) throw clipboardError || new Error("Clipboard copy failed");
 }
 
+const copyStatusTimeouts = new WeakMap();
 document.querySelectorAll("[data-copy-email]").forEach(link => {
   link.addEventListener("click", async event => {
     event.preventDefault();
@@ -93,6 +94,11 @@ document.querySelectorAll("[data-copy-email]").forEach(link => {
     } catch(err) {
       status.textContent = "Could not copy email. Please copy it manually.";
     }
+    clearTimeout(copyStatusTimeouts.get(status));
+    copyStatusTimeouts.set(status, setTimeout(() => {
+      status.textContent = "";
+      copyStatusTimeouts.delete(status);
+    }, 2000));
   });
 });
 

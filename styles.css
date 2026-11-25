@@ -157,7 +157,7 @@ footer a:hover{color:#fff}
 footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 footer ul{display:flex;gap:22px;list-style:none;margin:0;padding:0;flex-wrap:wrap}
 .copy-status{font-size:.85em}
-.split-body > .copy-status{display:block;min-height:1.5em;margin-top:.5em}
+.split-body > .copy-status:not(:empty){display:block;margin-top:.5em}
 
 @media (max-width:900px){
   .hero-grid{grid-template-columns:1fr;gap:44px}
