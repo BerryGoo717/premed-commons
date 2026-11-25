@@ -55,6 +55,20 @@ const $ = id => document.getElementById(id);
 /* ===== Footer year ===== */
 if($("year")) $("year").textContent = new Date().getFullYear();
 
+/* ===== Copy email ===== */
+document.querySelectorAll("[data-copy-email]").forEach(button => {
+  button.addEventListener("click", async () => {
+    const status = button.nextElementSibling;
+    try {
+      if(!navigator.clipboard) throw new Error("Clipboard API unavailable");
+      await navigator.clipboard.writeText(button.dataset.copyEmail);
+      status.textContent = "Email copied to clipboard.";
+    } catch(err) {
+      status.textContent = "Could not copy email. Please copy it manually.";
+    }
+  });
+});
+
 /* ===== Roadmap (resources page) ===== */
 (function(){
   const tabs = $("tabs"), panels = $("panels");
