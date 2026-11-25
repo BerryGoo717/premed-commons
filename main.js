@@ -73,9 +73,9 @@ async function copyText(text) {
   field.style.position = "fixed";
   field.style.opacity = "0";
   document.body.appendChild(field);
-  field.select();
   let copied;
   try {
+    field.select();
     copied = document.execCommand("copy");
   } finally {
     field.remove();
@@ -83,11 +83,12 @@ async function copyText(text) {
   if(!copied) throw clipboardError || new Error("Clipboard copy failed");
 }
 
-document.querySelectorAll("[data-copy-email]").forEach(button => {
-  button.addEventListener("click", async () => {
-    const status = button.nextElementSibling;
+document.querySelectorAll("[data-copy-email]").forEach(link => {
+  link.addEventListener("click", async event => {
+    event.preventDefault();
+    const status = link.nextElementSibling;
     try {
-      await copyText(button.dataset.copyEmail);
+      await copyText(link.dataset.copyEmail);
       status.textContent = "Email copied to clipboard.";
     } catch(err) {
       status.textContent = "Could not copy email. Please copy it manually.";
