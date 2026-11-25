@@ -156,8 +156,7 @@ footer a{color:#fff;text-decoration-color:var(--c5);text-underline-offset:3px}
 footer a:hover{color:#fff}
 footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 footer ul{display:flex;gap:22px;list-style:none;margin:0;padding:0;flex-wrap:wrap}
-.copy-status{font-size:.85em}
-.split-body > .copy-status:not(:empty){display:block;margin-top:.5em}
+.copy-status:not(:empty){position:fixed;left:50%;bottom:1.5rem;z-index:1000;max-width:calc(100vw - 32px);padding:.65rem 1rem;transform:translateX(-50%);border:1px solid var(--line);border-radius:12px;background:var(--c2);color:#fff;font-size:.9rem;text-align:center;box-shadow:0 6px 24px rgba(0,0,0,.25);pointer-events:none}
 
 @media (max-width:900px){
   .hero-grid{grid-template-columns:1fr;gap:44px}
