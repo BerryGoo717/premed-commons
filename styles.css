@@ -105,8 +105,9 @@ nav a.btn:hover{border-color:var(--c6);color:#fff}
 .note{font-size:.92rem;color:#fff;margin-top:20px}
 
 /* reflection builder */
-.ref{display:grid;gap:16px}
-.ref-card{padding:24px 26px}
+.ref{display:grid;grid-auto-rows:minmax(100%,auto);gap:12px;height:clamp(340px,55vh,520px);overflow-y:auto;overscroll-behavior:contain;scroll-snap-type:y mandatory;padding-right:8px}
+.ref-card{min-height:100%;padding:24px 26px;scroll-snap-align:start;scroll-snap-stop:always}
+.ref-instructions{font-size:.92rem;margin:0 0 10px}
 .ref-card label{display:block;margin-bottom:6px}
 .ref-title{display:block;font-size:1.15rem;font-weight:700;margin-bottom:4px}
 .ref-ask{display:block;font-weight:400}
