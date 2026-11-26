@@ -7,13 +7,26 @@ const STAGES = [
   { id:"gap", label:"Gap year" }
 ];
 
-/* Activity balance tool: common starting ranges (hours), based on rough advising guidance.
-   Not requirements. Edit the numbers or hints freely. */
-const BENCH = [
-  { key:"clinical", label:"Clinical", low:100, high:200, eg:"Patient-facing work: hospital or clinic volunteering, scribing, EMT, CNA" },
-  { key:"research", label:"Research", low:100, high:300, eg:"Lab, clinical, or any hypothesis-driven research in any field" },
-  { key:"nonclinical", label:"Non-clinical volunteering", low:100, high:200, eg:"Service to your community outside of healthcare settings" },
-  { key:"shadowing", label:"Shadowing", low:25, high:75, eg:"Observing physicians, in one or several specialties" }
+/* "Why medicine?" reflection prompts. Every prompt is optional. Edit freely. */
+const PROMPTS = [
+  { key:"moment", title:"A moment that mattered",
+    ask:"Think of a moment that made medicine feel real to you. What happened, and what did you notice about yourself?",
+    nudge:["I remember when...","What surprised me was...","Afterward, I felt..."] },
+  { key:"patients", title:"What you have learned from patients",
+    ask:"Describe an interaction with a patient, or with someone you cared for. What did it teach you about people or about care?",
+    nudge:["One person I will not forget...","I used to think... but now I see...","Something small that meant a lot..."] },
+  { key:"change", title:"Something you would want to change",
+    ask:"What problem in healthcare, or in your community, have you seen up close? What would you want to help change?",
+    nudge:["I noticed that...","The people most affected were...","If I could change one thing..."] },
+  { key:"struggle", title:"A time things did not go as planned",
+    ask:"Describe a setback or a hard stretch. How did you respond, and what did it show you?",
+    nudge:["The hardest part was...","What helped me keep going...","What I would do differently..."] },
+  { key:"becoming", title:"Who you are becoming",
+    ask:"What qualities do you want to bring to your patients, and where have you already practiced them?",
+    nudge:["I want to be someone who...","I have practiced this when...","A person who showed me this was..."] },
+  { key:"why", title:"Why medicine, and not something else",
+    ask:"What draws you to medicine in particular? Which other paths did you consider, and what did they teach you?",
+    nudge:["Other paths I explored...","What medicine offers that they do not...","What I still want to learn..."] }
 ];
 
 /* Sample entries: replace with your own guides and links. Add  url:"https://..."  to make a card clickable. */
@@ -112,115 +125,89 @@ if($("year")) $("year").textContent = new Date().getFullYear();
   });
 })();
 
-/* ===== Activity balance tool (resources page) ===== */
+/* ===== "Why medicine?" reflection builder (resources page) ===== */
 (function(){
-  const wrap = $("balInputs"), chart = $("balChart");
-  if(!wrap || !chart) return;
-  const summary = $("balSummary"), status = $("balStatus"), clearBtn = $("balClear");
-  const KEY = "pmc-balance";
+  const list = $("refList");
+  if(!list) return;
+  const KEY = "pmc-reflections";
+  const status = $("refStatus"), progress = $("refProgress");
   const saved = store.get(KEY);
-  const inputs = {};
+  const areas = {};
 
-  BENCH.forEach(b => {
-    const row = document.createElement("div");
-    row.className = "bal-row";
-    const id = "bal-" + b.key;
-    row.innerHTML = '<label for="' + id + '"></label><div class="bal-field"><input type="number" id="' + id + '" min="0" max="10000" step="1" inputmode="numeric" placeholder="0"><span>hours</span></div><p class="hint"></p><p class="result" id="res-' + b.key + '"></p>';
-    row.querySelector("label").textContent = b.label;
-    row.querySelector(".hint").textContent = b.eg + ". Common starting range: " + b.low + " to " + b.high + " hours.";
-    const input = row.querySelector("input");
-    if(saved[b.key]) input.value = saved[b.key];
-    input.addEventListener("input", () => { render(); queueSave(); });
-    inputs[b.key] = input;
-    wrap.appendChild(row);
+  function words(t){ const m = t.trim().match(/\S+/g); return m ? m.length : 0; }
+
+  PROMPTS.forEach(p => {
+    const card = document.createElement("article");
+    card.className = "ref-card";
+    const id = "ref-" + p.key;
+    card.innerHTML =
+      '<label for="' + id + '"><span class="ref-title"></span><span class="ref-ask"></span></label>' +
+      '<details class="ref-help"><summary>Need a nudge?</summary><ul></ul></details>' +
+      '<textarea id="' + id + '" rows="5" placeholder="Write as much or as little as you like, or skip this one."></textarea>' +
+      '<div class="ref-count"></div>';
+    card.querySelector(".ref-title").textContent = p.title;
+    card.querySelector(".ref-ask").textContent = p.ask;
+    const ul = card.querySelector("ul");
+    p.nudge.forEach(n => { const li = document.createElement("li"); li.textContent = n; ul.appendChild(li); });
+    const ta = card.querySelector("textarea");
+    if(saved[p.key]) ta.value = saved[p.key];
+    ta.addEventListener("input", () => { update(); queueSave(); });
+    areas[p.key] = { ta: ta, count: card.querySelector(".ref-count") };
+    list.appendChild(card);
   });
 
-  function val(key){
-    const v = parseFloat(inputs[key].value);
-    return isFinite(v) && v > 0 ? Math.min(v, 10000) : 0;
-  }
-
-  const CX = 220, CY = 195, R = 120;
-  function pt(i, r){
-    const a = (-90 + i * 90) * Math.PI / 180;
-    return [CX + r * Math.cos(a), CY + r * Math.sin(a)];
-  }
-  function poly(rs){ return rs.map((r, i) => pt(i, r).map(n => n.toFixed(1)).join(",")).join(" "); }
-  function path(rs){ return "M" + rs.map((r, i) => pt(i, r).map(n => n.toFixed(1)).join(",")).join(" L") + " Z"; }
-
-  function render(){
-    const vals = BENCH.map(b => val(b.key));
-    const axisMax = BENCH.map(b => b.high * 1.5);
-    const rUser = vals.map((v, i) => Math.min(v / axisMax[i], 1) * R);
-    const rLow = BENCH.map((b, i) => b.low / axisMax[i] * R);
-    const rHigh = BENCH.map((b, i) => b.high / axisMax[i] * R);
-
-    let svg = '<svg viewBox="-20 0 480 400" role="img" aria-label="Radar chart of your hours compared with common starting ranges">';
-    [1/3, 2/3, 1].forEach(f => { svg += '<polygon class="grid" points="' + poly(BENCH.map(() => R * f)) + '"/>'; });
-    for(let i = 0; i < 4; i++){
-      const p = pt(i, R);
-      svg += '<line class="axis" x1="' + CX + '" y1="' + CY + '" x2="' + p[0].toFixed(1) + '" y2="' + p[1].toFixed(1) + '"/>';
-    }
-    svg += '<path class="band" fill-rule="evenodd" d="' + path(rHigh) + " " + path(rLow) + '"/>';
-    if(vals.some(v => v > 0)){
-      svg += '<polygon class="you" points="' + poly(rUser) + '"/>';
-      rUser.forEach((r, i) => { if(vals[i] > 0){ const p = pt(i, r); svg += '<circle class="dot" cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="5"/>'; } });
-    }
-    const lab = [
-      { x: CX, y: CY - R - 34, anchor: "middle" },
-      { x: CX + R + 14, y: CY - 6, anchor: "start" },
-      { x: CX, y: CY + R + 28, anchor: "middle" },
-      { x: CX - R - 14, y: CY - 6, anchor: "end" }
-    ];
-    BENCH.forEach((b, i) => {
-      const l = lab[i];
-      svg += '<text class="lbl" text-anchor="' + l.anchor + '"><tspan x="' + l.x + '" y="' + l.y + '">' + b.label + '</tspan><tspan class="hrs" x="' + l.x + '" y="' + (l.y + 17) + '">' + vals[i] + ' hrs</tspan></text>';
+  function update(){
+    let filled = 0;
+    PROMPTS.forEach(p => {
+      const a = areas[p.key], n = words(a.ta.value);
+      a.count.textContent = n ? n + (n === 1 ? " word" : " words") : "";
+      if(n) filled++;
     });
-    svg += '</svg>';
-    chart.innerHTML = svg;
-
-    const under = [];
-    let reached = 0;
-    BENCH.forEach((b, i) => {
-      const v = vals[i], out = $("res-" + b.key);
-      if(v === 0){ out.textContent = "Not started yet, and that is okay."; under.push(b.label.toLowerCase()); }
-      else if(v < b.low){ out.textContent = "Room to grow. Many students build this up over a few semesters."; under.push(b.label.toLowerCase()); }
-      else if(v <= b.high){ out.textContent = "Right in the common starting range."; reached++; }
-      else { out.textContent = "Plenty here. What you learned matters more than extra hours."; reached++; }
-    });
-
-    if(vals.every(v => v === 0)){
-      summary.textContent = "Enter your hours and your chart will fill in. Rough numbers are fine, and you can update them any time.";
-    } else {
-      let list = under.length > 1 ? under.slice(0, -1).join(", ") + " and " + under[under.length - 1] : under[0];
-      summary.textContent = "You are in or past the common starting range in " + reached + " of 4 areas. " +
-        (under.length ? "Areas where a little more time could help: " + list + ". This is a snapshot, not a verdict, and most students build these gradually." :
-                        "That is a well-rounded picture. Keep reflecting on what each experience has taught you.");
-    }
+    progress.textContent = filled
+      ? "You have reflected on " + filled + " of " + PROMPTS.length + " prompts. There is no right number, and skipping is always fine."
+      : "Start with whichever prompt speaks to you. There is no order, and nothing is required.";
   }
 
   let timer;
   function persist(){
     const data = {};
-    BENCH.forEach(b => { const v = val(b.key); if(v) data[b.key] = v; });
+    PROMPTS.forEach(p => { const v = areas[p.key].ta.value; if(v.trim()) data[p.key] = v; });
     try{
       localStorage.setItem(KEY, JSON.stringify(data));
       status.textContent = "Saved in this browser.";
     }catch(e){
-      status.textContent = "Could not save here (your browser may be blocking storage). The chart still works.";
+      status.textContent = "Could not save here (your browser may be blocking storage). Download a copy to keep your writing.";
     }
   }
-  function queueSave(){ status.textContent = "Saving..."; clearTimeout(timer); timer = setTimeout(persist, 400); }
+  function queueSave(){ status.textContent = "Saving..."; clearTimeout(timer); timer = setTimeout(persist, 500); }
 
-  clearBtn.addEventListener("click", () => {
-    BENCH.forEach(b => { inputs[b.key].value = ""; });
-    try{ localStorage.removeItem(KEY); }catch(e){}
-    status.textContent = "Cleared.";
-    render();
+  $("refDownload").addEventListener("click", () => {
+    const parts = [];
+    PROMPTS.forEach(p => {
+      const v = areas[p.key].ta.value.trim();
+      if(v) parts.push(p.title.toUpperCase() + "\n" + p.ask + "\n\n" + v);
+    });
+    if(!parts.length){ status.textContent = "Nothing to download yet. Write in any prompt first."; return; }
+    const head = "My \"Why medicine?\" reflections\nFrom Premed Commons, " + new Date().toLocaleDateString() + "\n\n";
+    const blob = new Blob([head + parts.join("\n\n----------\n\n") + "\n"], { type:"text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = "why-medicine-reflections.txt";
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    status.textContent = "Downloaded.";
   });
 
-  render();
-  if(Object.keys(saved).length) status.textContent = "Loaded your saved hours.";
+  $("refClear").addEventListener("click", () => {
+    if(!window.confirm("Clear all of your reflections from this browser? This cannot be undone.")) return;
+    PROMPTS.forEach(p => { areas[p.key].ta.value = ""; });
+    try{ localStorage.removeItem(KEY); }catch(e){}
+    status.textContent = "Cleared.";
+    update();
+  });
+
+  update();
+  if(Object.keys(saved).length) status.textContent = "Loaded your saved reflections.";
 })();
 
 /* ===== Sign-up form (Formspree) ===== */

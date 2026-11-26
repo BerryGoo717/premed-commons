@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Resources | Premed Commons</title>
-<meta name="description" content="Activity balance tool, MCAT planning, personal statement guides, shadowing tips, and more.">
+<meta name="description" content="Why-medicine reflection builder, MCAT planning, personal statement guides, shadowing tips, and more.">
 <meta property="og:title" content="Resources | Premed Commons">
-<meta property="og:description" content="Activity balance tool, MCAT planning, personal statement guides, shadowing tips, and more.">
+<meta property="og:description" content="Why-medicine reflection builder, MCAT planning, personal statement guides, shadowing tips, and more.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://premedcommons.org/logo.png">
 <link rel="icon" href="logo.png">
@@ -35,33 +35,25 @@
   <div class="page-hero">
     <div class="wrap">
       <h1>Resources</h1>
-      <p class="lead">Guides, templates, and an activity balance tool to help you see the whole picture and decide what to do next.</p>
+      <p class="lead">Guides, templates, and a reflection builder to help you find your story and decide what to do next.</p>
     </div>
   </div>
 
-  <section class="split-sec" id="balance">
+  <section class="split-sec" id="reflect">
     <div class="wrap split">
       <div class="split-head">
-        <h2>Activity balance</h2>
-        <p class="lead">Enter your hours to see a picture of your experiences. There is no score and no pass or fail. It is just a way to notice where you have built a lot and where you might want to spend time next.</p>
+        <h2>Why medicine?</h2>
+        <p class="lead">A reflection builder with guided prompts to help you find your own story. Answer the ones that speak to you, skip the rest, and come back any time. Nothing here is required, and nothing is graded.</p>
       </div>
       <div class="split-body">
-        <div class="balance">
-          <div class="bal-inputs" id="balInputs"></div>
-          <div class="bal-chart">
-            <div id="balChart"></div>
-            <ul class="legend">
-              <li><i class="sw you-sw"></i>Your hours</li>
-              <li><i class="sw band-sw"></i>Common starting range</li>
-            </ul>
-          </div>
+        <div class="ref" id="refList"></div>
+        <p class="ref-progress" id="refProgress"></p>
+        <div class="ref-actions">
+          <button class="btn" type="button" id="refDownload">Download my reflections</button>
+          <button class="btn ghost" type="button" id="refClear">Clear everything</button>
+          <span class="ref-status" id="refStatus" role="status" aria-live="polite"></span>
         </div>
-        <p class="bal-summary" id="balSummary"></p>
-        <div class="bal-actions">
-          <button class="btn ghost" type="button" id="balClear">Clear my hours</button>
-          <span class="bal-status" id="balStatus" role="status" aria-live="polite"></span>
-        </div>
-        <p class="note">Your hours are saved only in this browser on this device. We never see them. The ranges come from rough guidance shared by premed advising offices (for example <a href="https://www.northwestern.edu/health-professions-advising/advising-tools/experiences/25-26-volunteering-and-shadowing-hours.pdf">Northwestern</a> and <a href="https://premed.uconn.edu/wp-content/uploads/sites/216/2021/09/Co-Curricular-Engagement-Slides.pdf">UConn</a>). They are not requirements, there is no standard number for research, and every school looks at the whole application. In an <a href="https://www.aamc.org/media/23336/download">AAMC survey</a>, schools said they value what you gain from an experience more than the number of hours.</p>
+        <p class="note">Your answers are saved only in this browser on this device, and we never see them. If you clear your browser data they will be gone, so download a copy now and then. These prompts are meant to give you raw material, not a draft. Your personal statement should be written in your own words and your own voice.</p>
       </div>
     </div>
   </section>
