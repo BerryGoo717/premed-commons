@@ -4,21 +4,21 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Resources | Premed Commons</title>
-<meta name="description" content="Premed roadmap, MCAT planning, personal statement guides, shadowing tips, and more.">
+<meta name="description" content="Activity balance tool, MCAT planning, personal statement guides, shadowing tips, and more.">
 <meta property="og:title" content="Resources | Premed Commons">
-<meta property="og:description" content="Premed roadmap, MCAT planning, personal statement guides, shadowing tips, and more.">
+<meta property="og:description" content="Activity balance tool, MCAT planning, personal statement guides, shadowing tips, and more.">
 <meta property="og:type" content="website">
-<meta property="og:image" content="https://premedcommons.org/pc_logo.svg">
-<link rel="icon" href="pc_logo.svg" type="image/svg+xml">
+<meta property="og:image" content="https://premedcommons.org/logo.png">
+<link rel="icon" href="logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=copy-toast-2s">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <header>
   <div class="wrap bar">
-    <a class="logo" href="index.html"><span class="logo-mark"><img src="pc_logo.svg" alt="" onerror="this.parentNode.remove()"></span><span class="logo-text">Premed Commons</span></a>
+    <a class="logo" href="index.html"><span class="logo-mark"><img src="logo.png" alt="" onerror="this.parentNode.remove()"></span><span class="logo-text">Premed Commons</span></a>
     <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav">Menu</button>
     <nav id="nav" aria-label="Main">
       <ul>
@@ -35,20 +35,33 @@
   <div class="page-hero">
     <div class="wrap">
       <h1>Resources</h1>
-      <p class="lead">Guides, templates, and a roadmap to help you know what to do next.</p>
+      <p class="lead">Guides, templates, and an activity balance tool to help you see the whole picture and decide what to do next.</p>
     </div>
   </div>
 
-  <section class="split-sec" id="roadmap">
+  <section class="split-sec" id="balance">
     <div class="wrap split">
       <div class="split-head">
-        <h2>Your premed roadmap</h2>
-        <p class="lead">Pick your year to see what to focus on. Check items off as you go. Your progress is saved in this browser.</p>
+        <h2>Activity balance</h2>
+        <p class="lead">Enter your hours to see a picture of your experiences. There is no score and no pass or fail. It is just a way to notice where you have built a lot and where you might want to spend time next.</p>
       </div>
       <div class="split-body">
-        <div class="tabs" role="tablist" aria-label="Year in school" id="tabs"></div>
-        <div id="panels"></div>
-        <p class="note">This is general guidance, not a substitute for your school's premed advisor. Requirements and timelines vary by school and program.</p>
+        <div class="balance">
+          <div class="bal-inputs" id="balInputs"></div>
+          <div class="bal-chart">
+            <div id="balChart"></div>
+            <ul class="legend">
+              <li><i class="sw you-sw"></i>Your hours</li>
+              <li><i class="sw band-sw"></i>Common starting range</li>
+            </ul>
+          </div>
+        </div>
+        <p class="bal-summary" id="balSummary"></p>
+        <div class="bal-actions">
+          <button class="btn ghost" type="button" id="balClear">Clear my hours</button>
+          <span class="bal-status" id="balStatus" role="status" aria-live="polite"></span>
+        </div>
+        <p class="note">Your hours are saved only in this browser on this device. We never see them. The ranges come from rough guidance shared by premed advising offices (for example <a href="https://www.northwestern.edu/health-professions-advising/advising-tools/experiences/25-26-volunteering-and-shadowing-hours.pdf">Northwestern</a> and <a href="https://premed.uconn.edu/wp-content/uploads/sites/216/2021/09/Co-Curricular-Engagement-Slides.pdf">UConn</a>). They are not requirements, there is no standard number for research, and every school looks at the whole application. In an <a href="https://www.aamc.org/media/23336/download">AAMC survey</a>, schools said they value what you gain from an experience more than the number of hours.</p>
       </div>
     </div>
   </section>
@@ -85,12 +98,12 @@
       <li><a href="bootcamps.html">Bootcamp Sessions</a></li>
       <li><a href="resources.html">Resources</a></li>
       <li><a href="community.html">Premed Community</a></li>
-      <li><a href="#" data-copy-email="hello@premedcommons.org">hello@premedcommons.org</a><span class="copy-status" role="status" aria-live="polite"></span></li>
+      <li><a href="mailto:hello@premedcommons.org">hello@premedcommons.org</a></li>
       <li><a href="#">Instagram</a></li>
       <li><a href="#">LinkedIn</a></li>
     </ul>
   </div>
 </footer>
-<script src="main.js?v=copy-toast-2s"></script>
+<script src="main.js"></script>
 </body>
 </html>

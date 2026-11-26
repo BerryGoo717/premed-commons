@@ -1,15 +1,19 @@
 /* ===== Shared data (edit freely) ===== */
-const ROADMAP = [
-  { id:"y1", label:"First year", sub:"Build a strong foundation and explore.",
-    items:["Meet your premed advisor and map out required courses","Build good study habits in your first science courses","Join one or two clubs you actually care about","Start exploring medicine through volunteering or hospital programs","Find a mentor, like an upperclassman or Premed Commons member"] },
-  { id:"y2", label:"Second year", sub:"Deepen your experiences.",
-    items:["Keep grades strong in core science courses","Look for a regular clinical or community service role","Ask about research opportunities in labs on campus","Begin shadowing physicians in specialties that interest you","Build relationships with professors who may later write letters"] },
-  { id:"y3", label:"Third year", sub:"MCAT prep and application planning.",
-    items:["Finish most prerequisite courses","Make a realistic MCAT study schedule and take practice exams","Decide on your application timeline, including whether to take a gap year","Ask for letters of recommendation early","Draft your personal statement and activity descriptions","Research medical schools and build a preliminary school list"] },
-  { id:"y4", label:"Application year", sub:"Apply carefully and prepare for interviews.",
-    items:["Submit primary applications as early as you can","Complete secondary applications promptly","Practice interviews with mentors or peers","Keep your experiences and coursework going","Send updates to schools when something meaningful changes"] },
-  { id:"gap", label:"Gap year", sub:"Use the time well.",
-    items:["Gain full-time clinical, research, or service experience","Retake or improve the MCAT or coursework only if it makes sense","Strengthen your story: why medicine, and why now","Reapply with a clear plan if this is a second cycle","Take care of your health and avoid burnout"] }
+const STAGES = [
+  { id:"y1", label:"First year" },
+  { id:"y2", label:"Second year" },
+  { id:"y3", label:"Third year" },
+  { id:"y4", label:"Application year" },
+  { id:"gap", label:"Gap year" }
+];
+
+/* Activity balance tool: common starting ranges (hours), based on rough advising guidance.
+   Not requirements. Edit the numbers or hints freely. */
+const BENCH = [
+  { key:"clinical", label:"Clinical", low:100, high:200, eg:"Patient-facing work: hospital or clinic volunteering, scribing, EMT, CNA" },
+  { key:"research", label:"Research", low:100, high:300, eg:"Lab, clinical, or any hypothesis-driven research in any field" },
+  { key:"nonclinical", label:"Non-clinical volunteering", low:100, high:200, eg:"Service to your community outside of healthcare settings" },
+  { key:"shadowing", label:"Shadowing", low:25, high:75, eg:"Observing physicians, in one or several specialties" }
 ];
 
 /* Sample entries: replace with your own guides and links. Add  url:"https://..."  to make a card clickable. */
@@ -55,115 +59,6 @@ const $ = id => document.getElementById(id);
 /* ===== Footer year ===== */
 if($("year")) $("year").textContent = new Date().getFullYear();
 
-/* ===== Copy email ===== */
-async function copyText(text) {
-  let clipboardError;
-  if(navigator.clipboard && window.isSecureContext) {
-    try {
-      await navigator.clipboard.writeText(text);
-      return;
-    } catch(err) {
-      clipboardError = err;
-    }
-  }
-
-  const field = document.createElement("textarea");
-  field.value = text;
-  field.setAttribute("readonly", "");
-  field.style.position = "fixed";
-  field.style.opacity = "0";
-  document.body.appendChild(field);
-  let copied;
-  try {
-    field.select();
-    copied = document.execCommand("copy");
-  } finally {
-    field.remove();
-  }
-  if(!copied) throw clipboardError || new Error("Clipboard copy failed");
-}
-
-const copyStatusTimeouts = new WeakMap();
-document.querySelectorAll("[data-copy-email]").forEach(link => {
-  link.addEventListener("click", async event => {
-    event.preventDefault();
-    const status = link.nextElementSibling;
-    try {
-      await copyText(link.dataset.copyEmail);
-      status.textContent = "Email copied to clipboard.";
-    } catch(err) {
-      status.textContent = "Could not copy email. Please copy it manually.";
-    }
-    clearTimeout(copyStatusTimeouts.get(status));
-    copyStatusTimeouts.set(status, setTimeout(() => {
-      status.textContent = "";
-      copyStatusTimeouts.delete(status);
-    }, 2000));
-  });
-});
-
-/* ===== Roadmap (resources page) ===== */
-(function(){
-  const tabs = $("tabs"), panels = $("panels");
-  if(!tabs || !panels) return;
-  const saved = store.get("pmc-progress");
-
-  function update(panel){
-    const boxes = panel.querySelectorAll("input[type=checkbox]");
-    const done = [...boxes].filter(b => b.checked).length;
-    panel.querySelector(".progress span").textContent = done + " of " + boxes.length + " done";
-    panel.querySelector(".progress-bar i").style.width = (done / boxes.length * 100) + "%";
-  }
-
-  ROADMAP.forEach((r, i) => {
-    const t = document.createElement("button");
-    t.className = "tab"; t.id = "tab-" + r.id; t.type = "button";
-    t.setAttribute("role","tab");
-    t.setAttribute("aria-controls","panel-" + r.id);
-    t.setAttribute("aria-selected", i === 0);
-    t.tabIndex = i === 0 ? 0 : -1;
-    t.textContent = r.label;
-    tabs.appendChild(t);
-
-    const p = document.createElement("div");
-    p.className = "panel"; p.id = "panel-" + r.id;
-    p.setAttribute("role","tabpanel");
-    p.setAttribute("aria-labelledby","tab-" + r.id);
-    p.hidden = i !== 0;
-    p.innerHTML = '<h3></h3><p class="sub"></p><ul class="checks"></ul><div class="progress"><span></span><div class="progress-bar"><i></i></div></div>';
-    p.querySelector("h3").textContent = r.label;
-    p.querySelector(".sub").textContent = r.sub;
-    const ul = p.querySelector(".checks");
-    r.items.forEach((text, j) => {
-      const key = r.id + "-" + j;
-      const li = document.createElement("li"), label = document.createElement("label");
-      const cb = document.createElement("input");
-      cb.type = "checkbox"; cb.checked = !!saved[key];
-      cb.addEventListener("change", () => { saved[key] = cb.checked; store.set("pmc-progress", saved); update(p); });
-      const span = document.createElement("span"); span.textContent = text;
-      label.append(cb, span); li.appendChild(label); ul.appendChild(li);
-    });
-    panels.appendChild(p);
-    update(p);
-  });
-
-  function select(btn){
-    tabs.querySelectorAll(".tab").forEach(b => {
-      const on = b === btn;
-      b.setAttribute("aria-selected", on); b.tabIndex = on ? 0 : -1;
-      $(b.getAttribute("aria-controls")).hidden = !on;
-    });
-    btn.focus();
-  }
-  tabs.addEventListener("click", e => { const b = e.target.closest(".tab"); if(b) select(b); });
-  tabs.addEventListener("keydown", e => {
-    const list = [...tabs.querySelectorAll(".tab")], i = list.indexOf(document.activeElement);
-    if(i < 0) return;
-    if(e.key === "ArrowRight"){ e.preventDefault(); select(list[(i+1) % list.length]); }
-    if(e.key === "ArrowLeft"){ e.preventDefault(); select(list[(i-1+list.length) % list.length]); }
-  });
-})();
-
 /* ===== Resource cards (home shows a few, resources page shows all with filters) ===== */
 (function(){
   const cards = $("cards");
@@ -201,9 +96,9 @@ document.querySelectorAll("[data-copy-email]").forEach(link => {
 (function(){
   const sel = $("stage"), out = $("finderOut");
   if(!sel || !out) return;
-  Object.keys(GROUPS).forEach(k => {
+  STAGES.forEach(s => {
     const o = document.createElement("option");
-    o.value = k; o.textContent = ROADMAP.find(r => r.id === k).label;
+    o.value = s.id; o.textContent = s.label;
     sel.appendChild(o);
   });
   sel.addEventListener("change", () => {
@@ -215,6 +110,117 @@ document.querySelectorAll("[data-copy-email]").forEach(link => {
     a.className = "btn"; a.href = "index.html#join"; a.textContent = "Join this circle";
     out.append(h, p, a);
   });
+})();
+
+/* ===== Activity balance tool (resources page) ===== */
+(function(){
+  const wrap = $("balInputs"), chart = $("balChart");
+  if(!wrap || !chart) return;
+  const summary = $("balSummary"), status = $("balStatus"), clearBtn = $("balClear");
+  const KEY = "pmc-balance";
+  const saved = store.get(KEY);
+  const inputs = {};
+
+  BENCH.forEach(b => {
+    const row = document.createElement("div");
+    row.className = "bal-row";
+    const id = "bal-" + b.key;
+    row.innerHTML = '<label for="' + id + '"></label><div class="bal-field"><input type="number" id="' + id + '" min="0" max="10000" step="1" inputmode="numeric" placeholder="0"><span>hours</span></div><p class="hint"></p><p class="result" id="res-' + b.key + '"></p>';
+    row.querySelector("label").textContent = b.label;
+    row.querySelector(".hint").textContent = b.eg + ". Common starting range: " + b.low + " to " + b.high + " hours.";
+    const input = row.querySelector("input");
+    if(saved[b.key]) input.value = saved[b.key];
+    input.addEventListener("input", () => { render(); queueSave(); });
+    inputs[b.key] = input;
+    wrap.appendChild(row);
+  });
+
+  function val(key){
+    const v = parseFloat(inputs[key].value);
+    return isFinite(v) && v > 0 ? Math.min(v, 10000) : 0;
+  }
+
+  const CX = 220, CY = 195, R = 120;
+  function pt(i, r){
+    const a = (-90 + i * 90) * Math.PI / 180;
+    return [CX + r * Math.cos(a), CY + r * Math.sin(a)];
+  }
+  function poly(rs){ return rs.map((r, i) => pt(i, r).map(n => n.toFixed(1)).join(",")).join(" "); }
+  function path(rs){ return "M" + rs.map((r, i) => pt(i, r).map(n => n.toFixed(1)).join(",")).join(" L") + " Z"; }
+
+  function render(){
+    const vals = BENCH.map(b => val(b.key));
+    const axisMax = BENCH.map(b => b.high * 1.5);
+    const rUser = vals.map((v, i) => Math.min(v / axisMax[i], 1) * R);
+    const rLow = BENCH.map((b, i) => b.low / axisMax[i] * R);
+    const rHigh = BENCH.map((b, i) => b.high / axisMax[i] * R);
+
+    let svg = '<svg viewBox="-20 0 480 400" role="img" aria-label="Radar chart of your hours compared with common starting ranges">';
+    [1/3, 2/3, 1].forEach(f => { svg += '<polygon class="grid" points="' + poly(BENCH.map(() => R * f)) + '"/>'; });
+    for(let i = 0; i < 4; i++){
+      const p = pt(i, R);
+      svg += '<line class="axis" x1="' + CX + '" y1="' + CY + '" x2="' + p[0].toFixed(1) + '" y2="' + p[1].toFixed(1) + '"/>';
+    }
+    svg += '<path class="band" fill-rule="evenodd" d="' + path(rHigh) + " " + path(rLow) + '"/>';
+    if(vals.some(v => v > 0)){
+      svg += '<polygon class="you" points="' + poly(rUser) + '"/>';
+      rUser.forEach((r, i) => { if(vals[i] > 0){ const p = pt(i, r); svg += '<circle class="dot" cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="5"/>'; } });
+    }
+    const lab = [
+      { x: CX, y: CY - R - 34, anchor: "middle" },
+      { x: CX + R + 14, y: CY - 6, anchor: "start" },
+      { x: CX, y: CY + R + 28, anchor: "middle" },
+      { x: CX - R - 14, y: CY - 6, anchor: "end" }
+    ];
+    BENCH.forEach((b, i) => {
+      const l = lab[i];
+      svg += '<text class="lbl" text-anchor="' + l.anchor + '"><tspan x="' + l.x + '" y="' + l.y + '">' + b.label + '</tspan><tspan class="hrs" x="' + l.x + '" y="' + (l.y + 17) + '">' + vals[i] + ' hrs</tspan></text>';
+    });
+    svg += '</svg>';
+    chart.innerHTML = svg;
+
+    const under = [];
+    let reached = 0;
+    BENCH.forEach((b, i) => {
+      const v = vals[i], out = $("res-" + b.key);
+      if(v === 0){ out.textContent = "Not started yet, and that is okay."; under.push(b.label.toLowerCase()); }
+      else if(v < b.low){ out.textContent = "Room to grow. Many students build this up over a few semesters."; under.push(b.label.toLowerCase()); }
+      else if(v <= b.high){ out.textContent = "Right in the common starting range."; reached++; }
+      else { out.textContent = "Plenty here. What you learned matters more than extra hours."; reached++; }
+    });
+
+    if(vals.every(v => v === 0)){
+      summary.textContent = "Enter your hours and your chart will fill in. Rough numbers are fine, and you can update them any time.";
+    } else {
+      let list = under.length > 1 ? under.slice(0, -1).join(", ") + " and " + under[under.length - 1] : under[0];
+      summary.textContent = "You are in or past the common starting range in " + reached + " of 4 areas. " +
+        (under.length ? "Areas where a little more time could help: " + list + ". This is a snapshot, not a verdict, and most students build these gradually." :
+                        "That is a well-rounded picture. Keep reflecting on what each experience has taught you.");
+    }
+  }
+
+  let timer;
+  function persist(){
+    const data = {};
+    BENCH.forEach(b => { const v = val(b.key); if(v) data[b.key] = v; });
+    try{
+      localStorage.setItem(KEY, JSON.stringify(data));
+      status.textContent = "Saved in this browser.";
+    }catch(e){
+      status.textContent = "Could not save here (your browser may be blocking storage). The chart still works.";
+    }
+  }
+  function queueSave(){ status.textContent = "Saving..."; clearTimeout(timer); timer = setTimeout(persist, 400); }
+
+  clearBtn.addEventListener("click", () => {
+    BENCH.forEach(b => { inputs[b.key].value = ""; });
+    try{ localStorage.removeItem(KEY); }catch(e){}
+    status.textContent = "Cleared.";
+    render();
+  });
+
+  render();
+  if(Object.keys(saved).length) status.textContent = "Loaded your saved hours.";
 })();
 
 /* ===== Sign-up form (Formspree) ===== */
