@@ -46,8 +46,13 @@
         <p class="lead">A reflection builder with guided prompts to help you find your own story. Answer the ones that speak to you, skip the rest, and come back any time. Nothing here is required, and nothing is graded.</p>
       </div>
       <div class="split-body">
-        <p class="ref-instructions">Scroll inside the prompt panel to move through the reflections. Your answers save automatically.</p>
-        <div class="ref" id="refList" role="region" aria-label="Reflection prompts. Scroll to move between prompts." tabindex="0"></div>
+        <p class="ref-instructions">Use the buttons to move through the prompts. Your answers save automatically.</p>
+        <div class="ref" id="refList" role="region" aria-label="Reflection prompt"></div>
+        <div class="ref-navigation" role="group" aria-label="Prompt navigation">
+          <button class="btn ghost" type="button" id="refPrevious" aria-controls="refList" disabled>Previous</button>
+          <span id="refPosition" aria-live="polite"></span>
+          <button class="btn" type="button" id="refNext" aria-controls="refList">Next</button>
+        </div>
         <p class="ref-progress" id="refProgress"></p>
         <div class="ref-actions">
           <button class="btn" type="button" id="refDownload">Download my reflections</button>

@@ -105,9 +105,13 @@ nav a.btn:hover{border-color:var(--c6);color:#fff}
 .note{font-size:.92rem;color:#fff;margin-top:20px}
 
 /* reflection builder */
-.ref{display:grid;grid-auto-rows:minmax(100%,auto);gap:12px;height:clamp(340px,55vh,520px);overflow-y:auto;overscroll-behavior:contain;scroll-snap-type:y mandatory;padding-right:8px}
-.ref-card{min-height:100%;padding:24px 26px;scroll-snap-align:start;scroll-snap-stop:always}
+.ref{display:grid}
+.ref-card{padding:24px 26px}
+.ref-card[hidden]{display:none}
 .ref-instructions{font-size:.92rem;margin:0 0 10px}
+.ref-navigation{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px}
+.ref-navigation span{font-size:.92rem;font-weight:600}
+.ref-navigation .btn:disabled{cursor:not-allowed;opacity:.55}
 .ref-card label{display:block;margin-bottom:6px}
 .ref-title{display:block;font-size:1.15rem;font-weight:700;margin-bottom:4px}
 .ref-ask{display:block;font-weight:400}

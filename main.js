@@ -131,8 +131,10 @@ if($("year")) $("year").textContent = new Date().getFullYear();
   if(!list) return;
   const KEY = "pmc-reflections";
   const status = $("refStatus"), progress = $("refProgress");
+  const previous = $("refPrevious"), next = $("refNext"), position = $("refPosition");
   const saved = store.get(KEY);
   const areas = {};
+  let activePrompt = 0;
 
   function words(t){ const m = t.trim().match(/\S+/g); return m ? m.length : 0; }
 
@@ -152,8 +154,25 @@ if($("year")) $("year").textContent = new Date().getFullYear();
     const ta = card.querySelector("textarea");
     if(saved[p.key]) ta.value = saved[p.key];
     ta.addEventListener("input", () => { update(); queueSave(); });
-    areas[p.key] = { ta: ta, count: card.querySelector(".ref-count") };
+    areas[p.key] = { card: card, ta: ta, count: card.querySelector(".ref-count") };
     list.appendChild(card);
+  });
+
+  function showPrompt(index){
+    activePrompt = index;
+    PROMPTS.forEach((p, i) => { areas[p.key].card.hidden = i !== activePrompt; });
+    previous.disabled = activePrompt === 0;
+    next.disabled = activePrompt === PROMPTS.length - 1;
+    position.textContent = "Prompt " + (activePrompt + 1) + " of " + PROMPTS.length;
+  }
+
+  previous.addEventListener("click", () => {
+    showPrompt(activePrompt - 1);
+    areas[PROMPTS[activePrompt].key].ta.focus();
+  });
+  next.addEventListener("click", () => {
+    showPrompt(activePrompt + 1);
+    areas[PROMPTS[activePrompt].key].ta.focus();
   });
 
   function update(){
@@ -206,6 +225,7 @@ if($("year")) $("year").textContent = new Date().getFullYear();
     update();
   });
 
+  showPrompt(activePrompt);
   update();
   if(Object.keys(saved).length) status.textContent = "Loaded your saved reflections.";
 })();
